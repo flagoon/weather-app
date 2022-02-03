@@ -13,20 +13,26 @@ export const WeatherWidgetContainer = styled.section`
 
 type Props = {
   city?: string;
+  isLoading: boolean;
 };
 
-export const WeatherWidget = ({ city }: Props) => (
+export const WeatherWidget = ({ city, isLoading }: Props) => (
   <WeatherWidgetContainer>
-    <div>Weather</div>
-    <div>{new Date().toString()}</div>
-    <div>City: {city}</div>
-    <div>morning:</div>
-    <div>day:</div>
-    <div>night:</div>
-    <div>humidity:</div>
-    <div>min value</div>
-    <div>max value</div>
-    <div>mean value</div>
-    <div>mode value</div>
+    {isLoading ? (
+      <div>Loading...</div>
+    ) : (
+      <>
+        <div>Weather</div>
+        <div>City: {city}</div>
+        <div>morning:</div>
+        <div>day:</div>
+        <div>night:</div>
+        <div>humidity:</div>
+        <div>min value</div>
+        <div>max value</div>
+        <div>mean value</div>
+        <div>mode value</div>
+      </>
+    )}
   </WeatherWidgetContainer>
 );
