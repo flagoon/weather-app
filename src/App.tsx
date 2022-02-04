@@ -5,7 +5,8 @@ import { CitySearchForm } from "./components/CitySection/CitySearchForm";
 import { FormattedWeather, WeatherWidget } from "./components/WeatherWidget";
 import { getWeather } from "./api/weather";
 import { WeatherData } from "./types/weatherApi";
-import { Days } from "./components/Control/Days";
+import { DaysControl } from "./components/Control/DaysControl";
+import format from "date-fns/format";
 
 function App() {
   const [position, setPosition] = useState<{ lat: number; long: number }>();
@@ -14,6 +15,11 @@ function App() {
     {} as FormattedWeather
   );
   const [error, setError] = useState<string>();
+  const [day, setDay] = useState<string>(format(Date.now(), "yyyy-MM-dd"));
+
+  const handleDayChange = (date: string) => {
+    setDay(date);
+  };
 
   const handlePosition = (geoPosition: GeolocationPosition) => {
     setPosition({
@@ -75,17 +81,15 @@ function App() {
     getWeatherData();
   }, [position]);
 
+  console.log(day);
+
   return (
     <AppContainer>
-      <Days />
+      <DaysControl handleDayChange={handleDayChange} />
       {error ? (
         <div>{error}</div>
       ) : (
-        <WeatherWidget
-          city={weather?.city}
-          isLoading={isLoading}
-          data={weather}
-        />
+        <WeatherWidget isLoading={isLoading} data={weather} day={day} />
       )}
 
       <CitySection>

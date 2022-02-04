@@ -18,13 +18,13 @@ export type FormattedWeather = {
 };
 
 type Props = {
-  city?: string;
   isLoading: boolean;
   data: FormattedWeather;
+  day: string;
 };
 
-export const WeatherWidget = ({ city, isLoading, data }: Props) => {
-  console.log({ data });
+export const WeatherWidget = ({ isLoading, data, day }: Props) => {
+  console.log({ day });
   return (
     <WeatherWidgetContainer>
       {isLoading ? (
@@ -32,9 +32,9 @@ export const WeatherWidget = ({ city, isLoading, data }: Props) => {
       ) : (
         <>
           <div>Weather</div>
-          <div>City: {city}</div>
+          <div>City: {data.city}</div>
           <div>morning:</div>
-          <div>day:</div>
+          <div>day: {day}</div>
           <div>night:</div>
           <div>humidity:</div>
           <div>min value</div>

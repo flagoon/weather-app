@@ -15,9 +15,12 @@ const DayS = styled.li`
   }
 `;
 
-export const Day = ({ date }: { date: string }) => {
-  const handleOnClick = () => {
-    console.log(date);
-  };
-  return <DayS onClick={handleOnClick}>{date}</DayS>;
+export const Day = ({
+  date,
+  handleDayChange,
+}: {
+  date: string;
+  handleDayChange: (date: string) => void;
+}) => {
+  return <DayS onClick={() => handleDayChange(date)}>{date}</DayS>;
 };
