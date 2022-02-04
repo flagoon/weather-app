@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { AppContainer, CitySection } from "./App.sc";
-import { CityList } from "./components/CitySection/CityList";
-import { CitySearchForm } from "./components/CitySection/CitySearchForm";
+import { AppContainer } from "./App.sc";
 import { FormattedWeather, WeatherWidget } from "./components/WeatherWidget";
 import { getWeather } from "./api/weather";
 import { WeatherData } from "./types/weatherApi";
 import { DaysControl } from "./components/Control/DaysControl";
 import format from "date-fns/format";
+import { CitySection } from "./components/CitySection/CitySection";
 
 function App() {
   const [position, setPosition] = useState<{ lat: number; long: number }>();
@@ -92,10 +91,7 @@ function App() {
       <WeatherWidget isLoading={isLoading} data={weather} day={day} />
       {/* )} */}
 
-      <CitySection>
-        <CitySearchForm />
-        <CityList />
-      </CitySection>
+      <CitySection />
     </AppContainer>
   );
 }

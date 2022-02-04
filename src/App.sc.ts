@@ -6,13 +6,3 @@ export const AppContainer = styled.main`
   padding: 16px;
   border: 1px solid red;
 `;
-
-export const CitySection = styled.section`
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-
-  @media screen and (max-width: 500px) {
-    background-color: yellow;
-  } ;
-`;
