@@ -3,11 +3,7 @@ import { useState } from "react";
 import { CityList } from "./CityList";
 import { CitySearchForm } from "./CitySearchForm";
 
-export const CitySection = ({
-  setCityPosition,
-}: {
-  setCityPosition: (position: Position) => void;
-}) => {
+export const CitySection = () => {
   const [cities, setCities] = useState<Array<City>>([]);
 
   const handleCitiesChange = (citiesList: City[]) => {
@@ -17,7 +13,7 @@ export const CitySection = ({
   return (
     <Flex direction="column">
       <CitySearchForm handleCitiesChange={handleCitiesChange} />
-      <CityList cities={cities} setCityPosition={setCityPosition} />
+      <CityList cities={cities} />
     </Flex>
   );
 };

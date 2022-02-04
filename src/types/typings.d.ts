@@ -1,4 +1,4 @@
-declare type Position = { lon: string; lat: string };
+declare type Position = { lon?: string; lat?: string };
 
 declare type City = {
   display_name: string;
