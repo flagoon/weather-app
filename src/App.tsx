@@ -5,6 +5,7 @@ import { CitySearchForm } from "./components/CitySection/CitySearchForm";
 import { FormattedWeather, WeatherWidget } from "./components/WeatherWidget";
 import { getWeather } from "./api/weather";
 import { WeatherData } from "./types/weatherApi";
+import { Days } from "./components/Control/Days";
 
 function App() {
   const [position, setPosition] = useState<{ lat: number; long: number }>();
@@ -74,10 +75,9 @@ function App() {
     getWeatherData();
   }, [position]);
 
-  console.log({ isLoading, position, weather });
-
   return (
     <AppContainer>
+      <Days />
       {error ? (
         <div>{error}</div>
       ) : (
