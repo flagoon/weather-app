@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { getCityLocation } from "../../api/cityLocation";
-import { City } from "../../types/citiesLocationApi";
 
 export const CitySearchContainer = styled.div`
   border: 1px solid blue;

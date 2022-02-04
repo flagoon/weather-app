@@ -8,7 +8,7 @@ import format from "date-fns/format";
 import { CitySection } from "./components/CitySection/CitySection";
 
 function App() {
-  const [position, setPosition] = useState<{ lat: string; lon: string }>();
+  const [position, setPosition] = useState<Position>();
   const [isLoading, setIsLoading] = useState(false);
   const [weather, setWeather] = useState<FormattedWeather>(
     {} as FormattedWeather
@@ -16,7 +16,7 @@ function App() {
   const [error, setError] = useState<string>();
   const [day, setDay] = useState<string>(format(Date.now(), "yyyy-MM-dd"));
 
-  const setCityPosition = (position: { lon: string; lat: string }) => {
+  const setCityPosition = (position: Position) => {
     setPosition(position);
   };
 

@@ -1,11 +1,9 @@
-import { City } from "../../types/citiesLocationApi";
-
 export const CityList = ({
   cities,
   setCityPosition,
 }: {
   cities: Array<City>;
-  setCityPosition: (position: { lon: string; lat: string }) => void;
+  setCityPosition: (position: Position) => void;
 }) => (
   <div>
     {cities.map(({ display_name, lon, lat }) => (

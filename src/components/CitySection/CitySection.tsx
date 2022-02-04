@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { CityList } from "./CityList";
 import { CitySearchForm } from "./CitySearchForm";
-import { City } from "../../types/citiesLocationApi";
 
 export const CitySection = ({
   setCityPosition,
 }: {
-  setCityPosition: (position: { lon: string; lat: string }) => void;
+  setCityPosition: (position: Position) => void;
 }) => {
   const [cities, setCities] = useState<Array<City>>([]);
 

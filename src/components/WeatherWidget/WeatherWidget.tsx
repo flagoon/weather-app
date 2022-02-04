@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { WeatherData } from "../../types/weatherApi";
-import { WD } from "./mockData";
 
 export const WeatherWidgetContainer = styled.section`
   position: relative;

@@ -1,4 +1,12 @@
-export type WeatherData = {
+declare type Position = { lon: string; lat: string };
+
+declare type City = {
+  display_name: string;
+  lat: string;
+  lon: string;
+};
+
+declare type WeatherData = {
   dt: number;
   main: {
     temp: number;
@@ -35,7 +43,7 @@ export type WeatherData = {
   dt_txt: string;
 };
 
-type City = {
+declare type CityOpenApi = {
   id: number;
   name: string;
   coord: {
@@ -49,10 +57,10 @@ type City = {
   sunset: number;
 };
 
-export type Weather = {
+declare type Weather = {
   cod: string;
   message: number;
   cnt: number;
   list: Array<WeatherData>;
-  city: City;
+  city: CityOpenApi;
 };

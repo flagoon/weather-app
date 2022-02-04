@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Weather } from "../types/weatherApi";
 
 export const getWeather = async ({ lat, lon }: { lat: string; lon: string }) =>
   axios.get<Weather>(

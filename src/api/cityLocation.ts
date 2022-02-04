@@ -1,5 +1,4 @@
 import axios from "axios";
-import { City } from "../types/citiesLocationApi";
 
 export const getCityLocation = async (city: string) =>
   axios.get<Array<City>>(
