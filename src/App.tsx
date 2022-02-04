@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { AppContainer, CitySection } from "./App.sc";
 import { CityList } from "./components/CitySection/CityList";
 import { CitySearchForm } from "./components/CitySection/CitySearchForm";
-import { WeatherWidget } from "./components/WeatherWidget";
-import axios from "axios";
-
-type WeatherData = { city: { name: string } };
+import { FormattedWeather, WeatherWidget } from "./components/WeatherWidget";
+import { getWeather } from "./api/weather";
+import { WeatherData } from "./types/weatherApi";
 
 function App() {
   const [position, setPosition] = useState<{ lat: number; long: number }>();
   const [isLoading, setIsLoading] = useState(false);
-  const [weather, setWeather] = useState<WeatherData>();
+  const [weather, setWeather] = useState<FormattedWeather>(
+    {} as FormattedWeather
+  );
   const [error, setError] = useState<string>();
 
   const handlePosition = (geoPosition: GeolocationPosition) => {
@@ -18,12 +19,20 @@ function App() {
       lat: geoPosition.coords.latitude,
       long: geoPosition.coords.longitude,
     });
+    setIsLoading(false);
+  };
+
+  const handleError = (error: GeolocationPositionError) => {
+    console.error(error);
+    setError("Geolocation is turn off. Search city by name.");
+    setIsLoading(false);
   };
 
   useEffect(() => {
     if (!position) {
+      setIsLoading(true);
       const currentGeolocation = () => {
-        navigator.geolocation?.getCurrentPosition(handlePosition);
+        navigator.geolocation?.getCurrentPosition(handlePosition, handleError);
       };
       currentGeolocation();
     }
@@ -34,25 +43,27 @@ function App() {
       if (position) {
         try {
           setIsLoading(true);
-          const weatherData = await axios.get(
-            `https://api.openweathermap.org/data/2.5/forecast?lat=${position.lat}&lon=${position.long}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
-          );
+          const weatherData = await getWeather(position);
           const weatherObject = weatherData.data.list.reduce(
-            (acc: Record<string, unknown>, data: { dt_txt: string }) => {
-              if (data.dt_txt.match(/06:00:00/gi)) {
-                acc = { ...acc, [data.dt_txt.replace(/\s/g, "_")]: data };
-              }
-              if (data.dt_txt.match(/12:00:00/gi)) {
-                acc = { ...acc, [data.dt_txt.replace(/\s/g, "_")]: data };
-              }
-              if (data.dt_txt.match(/18:00:00/gi)) {
-                acc = { ...acc, [data.dt_txt.replace(/\s/g, "_")]: data };
+            (acc: { [key: string]: WeatherData }, listItem: WeatherData) => {
+              if (
+                listItem.dt_txt.match(/09:00:00/gi) ||
+                listItem.dt_txt.match(/15:00:00/gi) ||
+                listItem.dt_txt.match(/21:00:00/gi)
+              ) {
+                acc = {
+                  ...acc,
+                  [listItem.dt_txt.replace(/\s/g, "_")]: listItem,
+                };
               }
               return acc;
             },
             {}
           );
-          setWeather(weatherObject);
+          setWeather({
+            data: weatherObject,
+            city: weatherData.data.city.name,
+          });
           setIsLoading(false);
         } catch (e) {
           setIsLoading(false);
@@ -63,14 +74,18 @@ function App() {
     getWeatherData();
   }, [position]);
 
-  console.log({ position, weather });
+  console.log({ isLoading, position, weather });
 
   return (
     <AppContainer>
       {error ? (
         <div>{error}</div>
       ) : (
-        <WeatherWidget city={"weather?.city.name"} isLoading={isLoading} />
+        <WeatherWidget
+          city={weather?.city}
+          isLoading={isLoading}
+          data={weather}
+        />
       )}
 
       <CitySection>
