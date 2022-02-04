@@ -1,9 +1,17 @@
 import { City } from "../../types/citiesLocationApi";
 
-export const CityList = ({ cities }: { cities: Array<City> }) => (
+export const CityList = ({
+  cities,
+  setCityPosition,
+}: {
+  cities: Array<City>;
+  setCityPosition: (position: { lon: string; lat: string }) => void;
+}) => (
   <div>
-    {cities.map((city) => (
-      <div>{city.display_name}</div>
+    {cities.map(({ display_name, lon, lat }) => (
+      <button onClick={() => setCityPosition({ lon, lat })}>
+        {display_name}
+      </button>
     ))}
   </div>
 );

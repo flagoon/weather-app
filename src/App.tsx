@@ -8,7 +8,7 @@ import format from "date-fns/format";
 import { CitySection } from "./components/CitySection/CitySection";
 
 function App() {
-  const [position, setPosition] = useState<{ lat: number; long: number }>();
+  const [position, setPosition] = useState<{ lat: string; lon: string }>();
   const [isLoading, setIsLoading] = useState(false);
   const [weather, setWeather] = useState<FormattedWeather>(
     {} as FormattedWeather
@@ -16,14 +16,18 @@ function App() {
   const [error, setError] = useState<string>();
   const [day, setDay] = useState<string>(format(Date.now(), "yyyy-MM-dd"));
 
+  const setCityPosition = (position: { lon: string; lat: string }) => {
+    setPosition(position);
+  };
+
   const handleDayChange = (date: string) => {
     setDay(date);
   };
 
   const handlePosition = (geoPosition: GeolocationPosition) => {
     setPosition({
-      lat: geoPosition.coords.latitude,
-      long: geoPosition.coords.longitude,
+      lat: geoPosition.coords.latitude.toString(),
+      lon: geoPosition.coords.longitude.toString(),
     });
     setIsLoading(false);
   };
@@ -88,10 +92,10 @@ function App() {
       {/* {error ? (
         <div>{error}</div>
       ) : ( */}
-      <WeatherWidget isLoading={isLoading} data={weather} day={day} />
+      {!isLoading && <WeatherWidget data={weather} day={day} />}
       {/* )} */}
 
-      <CitySection />
+      <CitySection setCityPosition={setCityPosition} />
     </AppContainer>
   );
 }

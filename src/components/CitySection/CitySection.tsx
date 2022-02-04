@@ -3,7 +3,11 @@ import { CityList } from "./CityList";
 import { CitySearchForm } from "./CitySearchForm";
 import { City } from "../../types/citiesLocationApi";
 
-export const CitySection = () => {
+export const CitySection = ({
+  setCityPosition,
+}: {
+  setCityPosition: (position: { lon: string; lat: string }) => void;
+}) => {
   const [cities, setCities] = useState<Array<City>>([]);
 
   const handleCitiesChange = (citiesList: City[]) => {
@@ -13,7 +17,7 @@ export const CitySection = () => {
   return (
     <>
       <CitySearchForm handleCitiesChange={handleCitiesChange} />
-      <CityList cities={cities} />
+      <CityList cities={cities} setCityPosition={setCityPosition} />
     </>
   );
 };
