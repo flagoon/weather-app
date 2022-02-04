@@ -1,18 +1,8 @@
-import styled from "styled-components";
 import format from "date-fns/format";
 import addDays from "date-fns/addDays";
-import { Day } from "./Day";
+import { Flex } from "@chakra-ui/react";
 
-const DaysContainer = styled.ul`
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  padding: 8px;
-  background: gray;
-  font-size: 0.8rem;
-  border-radius: 4px;
-`;
+import { Day } from "./Day";
 
 export const DaysControl = ({
   handleDayChange,
@@ -21,7 +11,13 @@ export const DaysControl = ({
 }) => {
   const date = Date.now();
   return (
-    <DaysContainer>
+    <Flex
+      justifyContent="space-around"
+      backgroundColor="gray.100"
+      borderRadius={4}
+      mt={4}
+      mb={4}
+    >
       <Day
         handleDayChange={handleDayChange}
         date={format(date, "yyyy-MM-dd")}
@@ -42,6 +38,6 @@ export const DaysControl = ({
         handleDayChange={handleDayChange}
         date={format(addDays(date, 4), "yyyy-MM-dd")}
       />
-    </DaysContainer>
+    </Flex>
   );
 };

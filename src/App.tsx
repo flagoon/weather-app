@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { AppContainer } from "./App.sc";
 import { FormattedWeather, WeatherWidget } from "./components/WeatherWidget";
 import { getWeather } from "./api";
 import { DaysControl } from "./components/Control/DaysControl";
 import format from "date-fns/format";
 import { CitySection } from "./components/CitySection/CitySection";
+import { ChakraProvider, Flex } from "@chakra-ui/react";
 
 function App() {
   const [position, setPosition] = useState<Position>();
@@ -84,16 +84,20 @@ function App() {
   }, [position]);
 
   return (
-    <AppContainer>
-      <DaysControl handleDayChange={handleDayChange} />
-      {/* {error ? (
+    <ChakraProvider>
+      <Flex flexDirection="column" alignItems="center" h="100vh">
+        <Flex flexDirection="column">
+          <DaysControl handleDayChange={handleDayChange} />
+          {/* {error ? (
         <div>{error}</div>
       ) : ( */}
-      {!isLoading && <WeatherWidget data={weather} day={day} />}
-      {/* )} */}
+          {!isLoading && <WeatherWidget data={weather} day={day} />}
+          {/* )} */}
 
-      <CitySection setCityPosition={setCityPosition} />
-    </AppContainer>
+          <CitySection setCityPosition={setCityPosition} />
+        </Flex>
+      </Flex>
+    </ChakraProvider>
   );
 }
 

@@ -1,19 +1,4 @@
-import styled from "styled-components";
-
-const DayS = styled.li`
-  background: lightGray;
-  border: 1px solid black;
-  width: 90px;
-  padding: 4px;
-  text-align: center;
-  list-style-type: none;
-  border-radius: 4px;
-
-  &:hover {
-    font-weight: 600;
-    cursor: pointer;
-  }
-`;
+import { Button } from "@chakra-ui/react";
 
 export const Day = ({
   date,
@@ -22,5 +7,9 @@ export const Day = ({
   date: string;
   handleDayChange: (date: string) => void;
 }) => {
-  return <DayS onClick={() => handleDayChange(date)}>{date}</DayS>;
+  return (
+    <Button m="15" onClick={() => handleDayChange(date)}>
+      {date}
+    </Button>
+  );
 };
