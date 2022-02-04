@@ -3,9 +3,6 @@ import { RootState } from "./rootReducer";
 
 const initialState: Position = {} as Position;
 
-/**
- * createSlice is creating reducer and action creators for us.
- */
 const positionSlice = createSlice({
   name: "position",
   initialState,

@@ -42,9 +42,6 @@ export const formatWeatherData = (
   return acc;
 };
 
-/**
- * createSlice is creating reducer and action creators for us.
- */
 const weatherWidgetSlice = createSlice({
   name: "weatherWidget",
   initialState,
@@ -78,9 +75,6 @@ const weatherWidgetSlice = createSlice({
         isLoading: false,
         error: "Failed fetching data for given position.",
       };
-    });
-    builder.addCase(setPosition, (state) => {
-      state.isLoading = false;
     });
     builder.addCase(clearPosition, (state) => {
       state.isLoading = false;

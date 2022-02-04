@@ -4,11 +4,7 @@ import { Flex } from "@chakra-ui/react";
 
 import { Day } from "./Day";
 
-export const DaysControl = ({
-  handleDayChange,
-}: {
-  handleDayChange: (date: string) => void;
-}) => {
+export const DaysControl = () => {
   const date = Date.now();
   return (
     <Flex
@@ -19,26 +15,11 @@ export const DaysControl = ({
       mb={4}
       flexWrap="wrap"
     >
-      <Day
-        handleDayChange={handleDayChange}
-        date={format(date, "yyyy-MM-dd")}
-      />
-      <Day
-        handleDayChange={handleDayChange}
-        date={format(addDays(date, 1), "yyyy-MM-dd")}
-      />
-      <Day
-        handleDayChange={handleDayChange}
-        date={format(addDays(date, 2), "yyyy-MM-dd")}
-      />
-      <Day
-        handleDayChange={handleDayChange}
-        date={format(addDays(date, 3), "yyyy-MM-dd")}
-      />
-      <Day
-        handleDayChange={handleDayChange}
-        date={format(addDays(date, 4), "yyyy-MM-dd")}
-      />
+      <Day date={format(date, "yyyy-MM-dd")} />
+      <Day date={format(addDays(date, 1), "yyyy-MM-dd")} />
+      <Day date={format(addDays(date, 2), "yyyy-MM-dd")} />
+      <Day date={format(addDays(date, 3), "yyyy-MM-dd")} />
+      <Day date={format(addDays(date, 4), "yyyy-MM-dd")} />
     </Flex>
   );
 };

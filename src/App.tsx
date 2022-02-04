@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { WeatherWidget } from "./components/WeatherWidget";
 import { DaysControl } from "./components/Control/DaysControl";
-import format from "date-fns/format";
 import { CitySection } from "./components/CitySection/CitySection";
 import { ChakraProvider, Container, Flex } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
@@ -20,15 +19,10 @@ import {
 
 function App() {
   const dispatch = useAppDispatch();
-  const [day, setDay] = useState<string>(format(Date.now(), "yyyy-MM-dd"));
 
   const position = useSelector(getPosition);
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getWeatherError);
-
-  const handleDayChange = (date: string) => {
-    setDay(date);
-  };
 
   const handlePosition = useCallback(
     (geoPosition: GeolocationPosition) => {
@@ -75,7 +69,7 @@ function App() {
         h="100vh"
       >
         <Flex flexDirection="column">
-          <DaysControl handleDayChange={handleDayChange} />
+          <DaysControl />
           <Flex minH={400} p={20}>
             {error ? (
               <div>{error}</div>

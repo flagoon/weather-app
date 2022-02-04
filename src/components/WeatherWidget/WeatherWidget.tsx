@@ -1,5 +1,6 @@
 import { Container, Heading } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import { getDay } from "../../redux/dayReducer";
 import {
   getCityName,
   getTemperatures,
@@ -19,6 +20,7 @@ export const WeatherWidget = () => {
   let temps = useSelector(getTemperatures);
   const weatherData = useSelector(getWeatherData);
   const sortedTemps = temps.slice().sort();
+  const day = useSelector(getDay);
 
   const minTemp = sortedTemps[0];
   const maxTemp = sortedTemps[sortedTemps.length - 1];
@@ -31,22 +33,16 @@ export const WeatherWidget = () => {
    * is not available. With more time I would change the app, to fetch for first day from different endpoint
    * and for the rest days, current endpoint. For now this values will be as 'no data'
    */
-  const morningWeather = weatherData[`2022-02-05_09:00:00`]?.main;
-  const dayWeather = weatherData[`2022-02-05_15:00:00`]?.main;
-  const nightWeather = weatherData[`2022-02-05_21:00:00`]?.main;
+  const morningWeather = weatherData[`${day}_09:00:00`]?.main;
+  const dayWeather = weatherData[`${day}_15:00:00`]?.main;
+  const nightWeather = weatherData[`${day}_21:00:00`]?.main;
 
   return (
     <Container maxW="container.md">
       <Heading>{city}</Heading>
-      <div>
-        morning:
-        {morningWeather?.temp || "no data"}
-      </div>
+      <div>morning: {morningWeather?.temp || "no data"}</div>
       <div>day: {dayWeather?.temp || "no data"}</div>
-      <div>
-        night:
-        {nightWeather?.temp || "no data"}
-      </div>
+      <div>night: {nightWeather?.temp || "no data"}</div>
       <div>humidity: {dayWeather?.humidity || "no data"}</div>
       <div>Min Temp: {minTemp}</div>
       <div>Max Temp: {maxTemp}</div>
