@@ -8,7 +8,12 @@ export const Day = ({
   handleDayChange: (date: string) => void;
 }) => {
   return (
-    <Button m="15" onClick={() => handleDayChange(date)}>
+    <Button
+      my={2}
+      onClick={() => handleDayChange(date)}
+      variant="outline"
+      colorScheme="teal"
+    >
       {date}
     </Button>
   );

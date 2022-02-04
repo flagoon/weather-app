@@ -4,7 +4,7 @@ import { getWeather } from "./api";
 import { DaysControl } from "./components/Control/DaysControl";
 import format from "date-fns/format";
 import { CitySection } from "./components/CitySection/CitySection";
-import { ChakraProvider, Flex } from "@chakra-ui/react";
+import { ChakraProvider, Container, Flex } from "@chakra-ui/react";
 
 function App() {
   const [position, setPosition] = useState<Position>();
@@ -85,7 +85,12 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Flex flexDirection="column" alignItems="center" h="100vh">
+      <Container
+        maxW="container.md"
+        flexDirection="column"
+        alignItems="center"
+        h="100vh"
+      >
         <Flex flexDirection="column">
           <DaysControl handleDayChange={handleDayChange} />
           {/* {error ? (
@@ -96,7 +101,7 @@ function App() {
 
           <CitySection setCityPosition={setCityPosition} />
         </Flex>
-      </Flex>
+      </Container>
     </ChakraProvider>
   );
 }

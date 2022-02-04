@@ -13,10 +13,11 @@ export const DaysControl = ({
   return (
     <Flex
       justifyContent="space-around"
-      backgroundColor="gray.100"
+      maxW="container.md"
       borderRadius={4}
       mt={4}
       mb={4}
+      flexWrap="wrap"
     >
       <Day
         handleDayChange={handleDayChange}

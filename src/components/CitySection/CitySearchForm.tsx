@@ -1,10 +1,6 @@
+import { Button, Flex, Input } from "@chakra-ui/react";
 import { useState } from "react";
-import styled from "styled-components";
 import { getCityLocation } from "../../api";
-
-export const CitySearchContainer = styled.div`
-  border: 1px solid blue;
-`;
 
 export const CitySearchForm = ({
   handleCitiesChange,
@@ -18,7 +14,6 @@ export const CitySearchForm = ({
   };
 
   const handleOnClick = async () => {
-    console.log("handleOnClick", city);
     try {
       const cities = await getCityLocation(city);
       handleCitiesChange(cities.data);
@@ -26,12 +21,19 @@ export const CitySearchForm = ({
       console.log((e as Error).message);
       handleCitiesChange([]);
     }
+    setCity("");
   };
 
   return (
-    <CitySearchContainer>
-      <input onChange={handleChange} value={city} />
-      <button onClick={handleOnClick}>Go!</button>
-    </CitySearchContainer>
+    <Flex mt={4} mb={4}>
+      <Input
+        placeholder="Enter city name"
+        onChange={handleChange}
+        value={city}
+      />
+      <Button w={100} onClick={handleOnClick}>
+        Go!
+      </Button>
+    </Flex>
   );
 };

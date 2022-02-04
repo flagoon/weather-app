@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { CityList } from "./CityList";
 import { CitySearchForm } from "./CitySearchForm";
@@ -14,9 +15,9 @@ export const CitySection = ({
   };
 
   return (
-    <>
+    <Flex direction="column">
       <CitySearchForm handleCitiesChange={handleCitiesChange} />
       <CityList cities={cities} setCityPosition={setCityPosition} />
-    </>
+    </Flex>
   );
 };

@@ -1,15 +1,4 @@
-import styled from "styled-components";
-
-export const WeatherWidgetContainer = styled.section`
-  position: relative;
-  width: 600px;
-  height: 360px;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 0 auto;
-
-  border: 1px solid pink;
-`;
+import { Container, Heading } from "@chakra-ui/react";
 
 export type FormattedWeather = {
   city: string;
@@ -32,9 +21,10 @@ export const WeatherWidget = ({ data, day }: Props) => {
   const nightWeather = data.data[`${day}_21:00:00`]?.main;
 
   return (
-    <WeatherWidgetContainer>
-      <div>{day}</div>
-      <div>City: {data.city}</div>
+    <Container maxW="container.md">
+      <Heading>
+        {data.city}: {day}
+      </Heading>
       <div>
         morning:
         {morningWeather?.temp || "no data"}
@@ -65,6 +55,6 @@ export const WeatherWidget = ({ data, day }: Props) => {
       </div>
       <div>mean value: don't know what that mean</div>
       <div>mode value: don't know what that mean</div>
-    </WeatherWidgetContainer>
+    </Container>
   );
 };

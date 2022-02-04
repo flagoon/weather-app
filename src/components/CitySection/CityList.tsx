@@ -1,3 +1,5 @@
+import { Button, Flex } from "@chakra-ui/react";
+
 export const CityList = ({
   cities,
   setCityPosition,
@@ -5,11 +7,15 @@ export const CityList = ({
   cities: Array<City>;
   setCityPosition: (position: Position) => void;
 }) => (
-  <div>
+  <Flex direction="column">
     {cities.map(({ display_name, lon, lat }) => (
-      <button onClick={() => setCityPosition({ lon, lat })}>
+      <Button
+        colorScheme="teal"
+        mt={2}
+        onClick={() => setCityPosition({ lon, lat })}
+      >
         {display_name}
-      </button>
+      </Button>
     ))}
-  </div>
+  </Flex>
 );
