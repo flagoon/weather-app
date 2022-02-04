@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { AppContainer } from "./App.sc";
 import { FormattedWeather, WeatherWidget } from "./components/WeatherWidget";
-import { getWeather } from "./api/weather";
-import { WeatherData } from "./types/weatherApi";
+import { getWeather } from "./api";
 import { DaysControl } from "./components/Control/DaysControl";
 import format from "date-fns/format";
 import { CitySection } from "./components/CitySection/CitySection";
 
 function App() {
   const [position, setPosition] = useState<Position>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState<FormattedWeather>(
     {} as FormattedWeather
   );
@@ -83,8 +82,6 @@ function App() {
     };
     getWeatherData();
   }, [position]);
-
-  console.log(weather);
 
   return (
     <AppContainer>
