@@ -6,7 +6,10 @@ import { RootState } from "./rootReducer";
 const initialState = {
   isLoading: true,
   error: "",
-  weather: {},
+  weather: {
+    dayWeather: {} as { [key: string]: WeatherData },
+    temps: [] as Array<number>,
+  },
   city: "",
 };
 
@@ -19,17 +22,21 @@ export const fetchWeatherByPosition = createAsyncThunk(
 );
 
 export const formatWeatherData = (
-  acc: { [key: string]: WeatherData },
+  acc: { dayWeather: { [key: string]: WeatherData }; temps: Array<number> },
   listItem: WeatherData
 ) => {
+  acc = { ...acc, temps: [...acc.temps, listItem.main.temp] };
   if (
-    listItem.dt_txt.match(/09:00:00/gi) ||
-    listItem.dt_txt.match(/15:00:00/gi) ||
-    listItem.dt_txt.match(/21:00:00/gi)
+    listItem.dt_txt.match(/09:00:00/g) ||
+    listItem.dt_txt.match(/15:00:00/g) ||
+    listItem.dt_txt.match(/21:00:00/g)
   ) {
     acc = {
       ...acc,
-      [listItem.dt_txt.replace(/\s/g, "_")]: listItem,
+      dayWeather: {
+        ...acc.dayWeather,
+        [listItem.dt_txt.replace(/\s/g, "_")]: listItem,
+      },
     };
   }
   return acc;
@@ -56,7 +63,10 @@ const weatherWidgetSlice = createSlice({
         city: action.payload.city.name,
         isLoading: false,
         error: "",
-        weather: action.payload.list.reduce(formatWeatherData, {}),
+        weather: action.payload.list.reduce(formatWeatherData, {
+          dayWeather: {},
+          temps: [] as Array<number>,
+        }),
       };
     });
     builder.addCase(fetchWeatherByPosition.pending, (state) => {
@@ -84,6 +94,9 @@ export const { hideLoader, showLoader } = weatherWidgetSlice.actions;
 
 export default weatherWidgetSlice.reducer;
 export const getIsLoading = (state: RootState) => state.weatherWidget.isLoading;
-export const getWeatherData = (state: RootState) => state.weatherWidget.weather;
+export const getWeatherData = (state: RootState) =>
+  state.weatherWidget.weather.dayWeather;
+export const getTemperatures = (state: RootState) =>
+  state.weatherWidget.weather.temps;
 export const getCityName = (state: RootState) => state.weatherWidget.city;
 export const getWeatherError = (state: RootState) => state.weatherWidget.error;
