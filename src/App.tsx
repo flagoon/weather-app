@@ -81,16 +81,16 @@ function App() {
     getWeatherData();
   }, [position]);
 
-  console.log(day);
+  console.log(weather);
 
   return (
     <AppContainer>
       <DaysControl handleDayChange={handleDayChange} />
-      {error ? (
+      {/* {error ? (
         <div>{error}</div>
-      ) : (
-        <WeatherWidget isLoading={isLoading} data={weather} day={day} />
-      )}
+      ) : ( */}
+      <WeatherWidget isLoading={isLoading} data={weather} day={day} />
+      {/* )} */}
 
       <CitySection>
         <CitySearchForm />
